@@ -7,15 +7,16 @@ const dataBase = process.env.MONGOCONNECT
 const urlPars = process.env.URLPARS
 const unified = process.env.UNIFIED
 
-mongoose.set('strictQuery', false);
-mongoose.connect(dataBase, {
-    useNewUrlParser: urlPars,
-    useUnifiedTopology: unified,
-}, (err) => {
-    if (err) {
-        console.log(err);
-    }
-});
+try {
+    await mongoose.connect(dataBase, {
+        useNewUrlParser: urlPars,
+        useUnifiedTopology: unified,
+    });
+    mongoose.set('strictQuery', false);
+    console.log('Conectado a la base de datos');
+} catch (error) {
+    console.error(error);
+}
 
 export default class Container {
 
